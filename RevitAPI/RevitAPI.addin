@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+	<AddIn Type="Application">
+		<Name>RevitAPI</Name>
+		<Assembly>C:\RevitAPI Development\Revit API course\Projects\RevitAPI\RevitAPI\bin\x64\Debug\net8.0-windows\RevitAPIProject.dll</Assembly>
+		<AddInId>8D83C886-B739-4ACD-A9DB-1BC78F315B1A</AddInId>
+		<FullClassName>RevitAPIProject.Application.App</FullClassName>
+		<VendorId>Paco</VendorId>
+		<VendorDescription>Prakash Kuchhadiya</VendorDescription>
+	</AddIn>
+</RevitAddIns>

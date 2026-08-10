@@ -1,0 +1,158 @@
+﻿<Window
+    x:Class="RevitAPIProject.Views.ModelNavigatorView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:RevitAPIProject.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:RevitAPIProject.ViewModels"
+    Title="Model Navigator"
+    Width="800"
+    Height="450"
+    d:DataContext="{d:DesignInstance Type=viewmodels:ModelNavigatorViewModel}"
+    Icon="/RevitAPIProject;component/Images/General_Test32.png"
+    Topmost="True"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <ResourceDictionary Source="/RevitAPIProject;component/Resources/RevitSolutionStyle.xaml" />
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="3" />
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="3" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Fixed CheckBox Binding  -->
+        <CheckBox
+            Grid.Row="0"
+            Grid.Column="0"
+            Content="Check All Categories"
+            IsChecked="{Binding AllCategoriesChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <ListBox
+            Grid.Row="1"
+            Grid.Column="0"
+            BorderBrush="Silver"
+            BorderThickness="1"
+            ItemsSource="{Binding CategoryBinds}"
+            SelectedItem="{Binding SelectedCategoryBind, Mode=TwoWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked, Mode=TwoWay}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <GridSplitter
+            Grid.Row="1"
+            Grid.Column="1"
+            HorizontalAlignment="Stretch"
+            Background="Silver" />
+
+        <ItemsControl
+            Grid.Row="1"
+            Grid.Column="2"
+            BorderBrush="Silver"
+            BorderThickness="1"
+            ItemsSource="{Binding ElementTypeBinds}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked, Mode=TwoWay}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <GridSplitter
+            Grid.Row="1"
+            Grid.Column="3"
+            HorizontalAlignment="Stretch"
+            Background="Silver" />
+
+        <!--  Corrected Column index from 5 to 4  -->
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="4"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="#FF22708A"
+            Text="Control" />
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="4"
+            Margin="10">
+            <Button Margin="0,5,0,5" Command="{Binding SelectInRevitCommand}">
+                <DockPanel>
+                    <materialDesign:PackIcon
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Kind="Select" />
+                    <TextBlock VerticalAlignment="Center" Text="Select" />
+                </DockPanel>
+            </Button>
+            <Button Margin="0,5,0,5" Command="{Binding IsolateInRevitCommand}">
+                <DockPanel>
+                    <materialDesign:PackIcon
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Kind="Eye" />
+                    <TextBlock VerticalAlignment="Center" Text="Isolate" />
+                </DockPanel>
+            </Button>
+            <Button Margin="0,5,0,5" Command="{Binding HideInRevitCommand}">
+                <DockPanel>
+                    <materialDesign:PackIcon
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Kind="Hide" />
+                    <TextBlock VerticalAlignment="Center" Text="Hide" />
+                </DockPanel>
+            </Button>
+            <Button Margin="0,5,0,5" Command="{Binding DeleteInRevitCommand}">
+                <DockPanel>
+                    <materialDesign:PackIcon
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Kind="Delete" />
+                    <TextBlock VerticalAlignment="Center" Text="Delete" />
+                </DockPanel>
+            </Button>
+            <!--  Color Picker Control  -->
+            <TextBlock
+                Margin="0,10,0,2"
+                FontSize="11"
+                Foreground="Gray"
+                Text="Override" />
+            <materialDesign:ColorPicker
+                Height="120"
+                Margin="0,0,0,10"
+                Color="{Binding SelectedColor, Mode=TwoWay}" />
+
+            <!--  Override Color Button  -->
+            <Button
+                Margin="0,5,0,5"
+                Background="#FF3F51B5"
+                Command="{Binding OverrideColorInRevitCommand}">
+                <DockPanel>
+                    <materialDesign:PackIcon
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Kind="Palette" />
+                    <TextBlock VerticalAlignment="Center" Text="Apply Color" />
+                </DockPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>
